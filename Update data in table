@@ -1,0 +1,53 @@
+import java.util.*;
+import java.sql.*;
+public class javajdbc2 {
+    
+    public static void main(String[] args){
+        
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/practice";
+            String username = "root";
+            String password = "samar@4581";
+            Connection conn=DriverManager.getConnection(url,username,password);
+            String q="update student set sname=?,sadd=? where sid=?";
+            Statement st=conn.createStatement();
+            
+            PreparedStatement ps=conn.prepareStatement(q);
+
+            
+            Scanner sc=new Scanner(System.in);
+            Scanner sc1=new Scanner(System.in);
+            System.out.println("enter the id where we want to update");
+            
+            int id=sc.nextInt();
+            
+            System.out.println("enter the new nume");
+            String name=sc1.nextLine();
+            
+            System.out.println("enter the new address");
+
+            String address=sc1.nextLine();
+            
+            ps.setString(1, name);
+            ps.setString(2,address );  
+            ps.setInt(3, id);
+            
+            ps.executeUpdate();
+            
+           System.out.println("update successfully .........");
+           String qu="select * from student";
+           
+           ResultSet rs=st.executeQuery(qu);
+           
+           while(rs.next()){
+               String name1=rs.getString("sname");
+           }
+           
+           conn.close();         
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+}
