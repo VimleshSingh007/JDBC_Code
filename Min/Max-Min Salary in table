@@ -1,0 +1,23 @@
+import java.sql.*;
+public class javajdbc5{
+    public static void main(String[] args)throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = "jdbc:mysql://localhost:3306/practice";
+        String username = "root";
+        String password = "samar@4581";
+
+        Connection conn = DriverManager.getConnection(url, username, password);
+        
+        String q="select max(esalary) as max_sal from employee ";
+        
+        Statement s=conn.createStatement();
+        
+        ResultSet qs=s.executeQuery(q);
+        
+        if(qs.next()){
+            double i=qs.getDouble(1);
+            System.out.println("minimum salary is " + i);
+        }
+        
+    }
+}
