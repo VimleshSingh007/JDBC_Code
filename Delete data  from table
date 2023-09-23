@@ -1,0 +1,37 @@
+import java.util.*;
+import java.sql.*;
+public class javajdbc3 {
+    public static void main(String[] args){
+        
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/practice";
+            String username = "root";
+            String password = "samar@4581";
+            Connection conn=DriverManager.getConnection(url,username,password);
+            String q="delete from student where sid=?";
+            
+            PreparedStatement ps=conn.prepareStatement(q);
+
+            
+            Scanner sc=new Scanner(System.in);
+            System.out.println("enter the id which row we want to delete ");
+            
+            int id=sc.nextInt();
+         
+            ps.setInt(1, id);
+            
+            ps.executeUpdate();
+            
+           System.out.println("delete successfully .........");
+           
+           conn.close();
+
+            
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    
+}
+}
