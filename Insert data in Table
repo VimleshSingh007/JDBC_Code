@@ -1,0 +1,54 @@
+import java.sql.*;
+import java.util.*;
+public class javajdbc1 {
+    public static void main(String[] args){
+    try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/practice";
+            String username = "root";
+            String password = "samar@4581";
+            Connection conn=DriverManager.getConnection(url,username,password);
+            Scanner sc=new Scanner(System.in);
+            Scanner sc1=new Scanner(System.in);
+            
+            while(true){            
+            
+            
+            String q="insert into employee(ename,eadd,esalary) values(?,?,?)";
+            PreparedStatement ps=conn.prepareStatement(q);
+            System.out.println("enter the new nume");
+            String name=sc1.nextLine();
+            
+            System.out.println("enter the new address");
+            String address=sc1.nextLine();
+            
+            System.out.println("enter the salary of employee");
+            double salary=sc.nextDouble();
+
+            
+            ps.setString(1, name);
+            ps.setString(2,address);
+            ps.setDouble(3, salary);
+            
+            int a=ps.executeUpdate();
+           System.out.println("update successfully ........." +a);
+           
+           
+           System.out.println("do you want to insert more date in the table [yes/no]..");
+           
+           String ch=sc1.nextLine();
+           
+           if(ch.equalsIgnoreCase("no")){
+               break;
+           }
+               
+           }
+           conn.close();    
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        catch(Exception e){
+           e.printStackTrace();
+    }
+    }
+}
